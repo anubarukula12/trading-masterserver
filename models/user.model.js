@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const registerUser = new mongoose.Schema(
   {
-    userid:{
-      type:String
+    userid: {
+      type: String,
     },
     name: {
       type: String,
@@ -39,12 +39,12 @@ const registerUser = new mongoose.Schema(
   }
 );
 
-registerUser.pre("save",   async function (next){
+registerUser.pre("save", async function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
 });
 
-module.exports = mongoose.model("RegisterUser", registerUser);;
+module.exports = mongoose.model("RegisterUser", registerUser);
